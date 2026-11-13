@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_cinema_root" name="Cinema" sequence="40" groups="group_cinema_user"/>
+
+    <menuitem id="menu_cinema_schedule" name="Schedule" parent="menu_cinema_root" sequence="10"/>
+    <menuitem id="menu_cinema_showtime" name="Showtimes" parent="menu_cinema_schedule"
+              action="action_cinema_showtime" sequence="10"/>
+    <menuitem id="menu_cinema_showtime_generate" name="Generate Showtimes" parent="menu_cinema_schedule"
+              action="action_cinema_showtime_generate" sequence="20" groups="group_cinema_manager"/>
+
+    <menuitem id="menu_cinema_catalog" name="Catalog" parent="menu_cinema_root" sequence="20"/>
+    <menuitem id="menu_cinema_movie" name="Movies" parent="menu_cinema_catalog"
+              action="action_cinema_movie" sequence="10"/>
+    <menuitem id="menu_cinema_cinema" name="Cinemas" parent="menu_cinema_catalog"
+              action="action_cinema_cinema" sequence="20"/>
+    <menuitem id="menu_cinema_hall" name="Halls" parent="menu_cinema_catalog"
+              action="action_cinema_hall" sequence="30"/>
+
+    <menuitem id="menu_cinema_config" name="Configuration" parent="menu_cinema_root"
+              sequence="90" groups="group_cinema_manager"/>
+    <menuitem id="menu_cinema_genre" name="Genres" parent="menu_cinema_config"
+              action="action_cinema_genre" sequence="10"/>
+</odoo>

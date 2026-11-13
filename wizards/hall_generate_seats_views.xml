@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hall_generate_seats_form" model="ir.ui.view">
+        <field name="name">cinema.hall.generate.seats.form</field>
+        <field name="model">cinema.hall.generate.seats</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group string="Grid">
+                        <field name="hall_id" readonly="1"/>
+                        <field name="rows"/>
+                        <field name="seats_per_row"/>
+                        <field name="aisle_after"/>
+                        <field name="vip_last_rows"/>
+                        <field name="replace_existing"/>
+                    </group>
+                    <group string="Geometry (used by the 3D view-from-seat)">
+                        <field name="first_row_distance"/>
+                        <field name="row_spacing"/>
+                        <field name="row_rise"/>
+                        <field name="seat_spacing"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate" string="Generate" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

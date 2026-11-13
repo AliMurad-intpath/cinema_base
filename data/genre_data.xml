@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="genre_action" model="cinema.genre"><field name="name">Action</field></record>
+    <record id="genre_comedy" model="cinema.genre"><field name="name">Comedy</field></record>
+    <record id="genre_drama" model="cinema.genre"><field name="name">Drama</field></record>
+    <record id="genre_family" model="cinema.genre"><field name="name">Family</field></record>
+    <record id="genre_horror" model="cinema.genre"><field name="name">Horror</field></record>
+    <record id="genre_scifi" model="cinema.genre"><field name="name">Sci-Fi</field></record>
+    <record id="genre_thriller" model="cinema.genre"><field name="name">Thriller</field></record>
+    <record id="genre_animation" model="cinema.genre"><field name="name">Animation</field></record>
+</odoo>

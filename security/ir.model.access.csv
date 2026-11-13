@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cinema_cinema_user,cinema.cinema user,model_cinema_cinema,group_cinema_user,1,0,0,0
+access_cinema_cinema_manager,cinema.cinema manager,model_cinema_cinema,group_cinema_manager,1,1,1,1
+access_cinema_hall_user,cinema.hall user,model_cinema_hall,group_cinema_user,1,0,0,0
+access_cinema_hall_manager,cinema.hall manager,model_cinema_hall,group_cinema_manager,1,1,1,1
+access_cinema_seat_user,cinema.seat user,model_cinema_seat,group_cinema_user,1,0,0,0
+access_cinema_seat_manager,cinema.seat manager,model_cinema_seat,group_cinema_manager,1,1,1,1
+access_cinema_genre_user,cinema.genre user,model_cinema_genre,group_cinema_user,1,0,0,0
+access_cinema_genre_manager,cinema.genre manager,model_cinema_genre,group_cinema_manager,1,1,1,1
+access_cinema_movie_user,cinema.movie user,model_cinema_movie,group_cinema_user,1,0,0,0
+access_cinema_movie_manager,cinema.movie manager,model_cinema_movie,group_cinema_manager,1,1,1,1
+access_cinema_showtime_user,cinema.showtime user,model_cinema_showtime,group_cinema_user,1,0,0,0
+access_cinema_showtime_manager,cinema.showtime manager,model_cinema_showtime,group_cinema_manager,1,1,1,1

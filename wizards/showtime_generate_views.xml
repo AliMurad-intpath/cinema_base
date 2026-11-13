@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_showtime_generate_form" model="ir.ui.view">
+        <field name="name">cinema.showtime.generate.form</field>
+        <field name="model">cinema.showtime.generate</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group string="What">
+                        <field name="movie_id"/>
+                        <field name="hall_ids" widget="many2many_tags"/>
+                        <field name="base_price"/>
+                        <field name="audio_language"/>
+                        <field name="subtitle_language"/>
+                    </group>
+                    <group string="When">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="time_slots"/>
+                        <field name="buffer_minutes"/>
+                        <field name="publish"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate" string="Generate" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cinema_showtime_generate" model="ir.actions.act_window">
+        <field name="name">Generate Showtimes</field>
+        <field name="res_model">cinema.showtime.generate</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

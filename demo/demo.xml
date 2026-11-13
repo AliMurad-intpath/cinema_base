@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="demo_cinema_1" model="cinema.cinema">
+        <field name="name">Baghdad Mall Cinema</field>
+        <field name="code">BGD-01</field>
+        <field name="city">Baghdad</field>
+        <field name="tz">Asia/Baghdad</field>
+        <field name="latitude">33.3152</field>
+        <field name="longitude">44.3661</field>
+    </record>
+
+    <record id="demo_hall_1" model="cinema.hall">
+        <field name="name">Hall 1</field>
+        <field name="cinema_id" ref="demo_cinema_1"/>
+        <field name="hall_format">2d</field>
+    </record>
+    <record id="demo_hall_2" model="cinema.hall">
+        <field name="name">Hall 2 (VIP)</field>
+        <field name="cinema_id" ref="demo_cinema_1"/>
+        <field name="hall_format">vip</field>
+        <field name="vip_surcharge">5000</field>
+    </record>
+
+    <record id="demo_movie_1" model="cinema.movie">
+        <field name="name">Demo Action Movie</field>
+        <field name="duration_minutes">125</field>
+        <field name="rating">pg13</field>
+        <field name="state">now_showing</field>
+        <field name="original_language">English</field>
+        <field name="genre_ids" eval="[Command.set([ref('genre_action'), ref('genre_thriller')])]"/>
+        <field name="synopsis">A demo record used to try out the schedule and booking screens.</field>
+    </record>
+    <record id="demo_movie_2" model="cinema.movie">
+        <field name="name">Demo Family Comedy</field>
+        <field name="duration_minutes">105</field>
+        <field name="rating">g</field>
+        <field name="state">now_showing</field>
+        <field name="original_language">English</field>
+        <field name="genre_ids" eval="[Command.set([ref('genre_comedy'), ref('genre_family')])]"/>
+    </record>
+    <record id="demo_movie_3" model="cinema.movie">
+        <field name="name">Demo Upcoming Sci-Fi</field>
+        <field name="duration_minutes">140</field>
+        <field name="rating">pg13</field>
+        <field name="state">coming_soon</field>
+        <field name="release_date" eval="(DateTime.today() + relativedelta(days=21)).strftime('%Y-%m-%d')"/>
+        <field name="genre_ids" eval="[Command.set([ref('genre_scifi')])]"/>
+    </record>
+
+    <function model="cinema.hall" name="_generate_demo_layouts"/>
+    <function model="cinema.showtime" name="_generate_demo_showtimes"/>
+</odoo>

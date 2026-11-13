@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cinema_hall_list" model="ir.ui.view">
+        <field name="name">cinema.hall.list</field>
+        <field name="model">cinema.hall</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="cinema_id"/>
+                <field name="name"/>
+                <field name="hall_format"/>
+                <field name="seat_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cinema_hall_form" model="ir.ui.view">
+        <field name="name">cinema.hall.form</field>
+        <field name="model">cinema.hall</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_seats" string="Generate Seats" type="object" class="btn-primary"/>
+                    <button name="action_clear_seats" string="Clear Seats" type="object"
+                            invisible="not seat_count"
+                            confirm="Delete every seat of this hall?"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Hall 1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cinema_id"/>
+                            <field name="hall_format"/>
+                            <field name="seat_count"/>
+                        </group>
+                        <group string="Seat Surcharges">
+                            <field name="currency_id" invisible="1"/>
+                            <field name="vip_surcharge"/>
+                            <field name="couple_surcharge"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Layout" name="layout">
+                            <field name="layout_preview" widget="html" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Seats" name="seats">
+                            <field name="seat_ids">
+                                <list editable="bottom" default_order="row_index, number">
+                                    <field name="row_label"/>
+                                    <field name="row_index"/>
+                                    <field name="number"/>
+                                    <field name="seat_type"/>
+                                    <field name="pos_x" optional="hide"/>
+                                    <field name="pos_y" optional="hide"/>
+                                    <field name="pos_z" optional="hide"/>
+                                    <field name="active" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cinema_hall_search" model="ir.ui.view">
+        <field name="name">cinema.hall.search</field>
+        <field name="model">cinema.hall</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="cinema_id"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_cinema" string="Cinema" context="{'group_by': 'cinema_id'}"/>
+                    <filter name="group_format" string="Format" context="{'group_by': 'hall_format'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cinema_hall" model="ir.actions.act_window">
+        <field name="name">Halls</field>
+        <field name="res_model">cinema.hall</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

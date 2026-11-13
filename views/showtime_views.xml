@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cinema_showtime_list" model="ir.ui.view">
+        <field name="name">cinema.showtime.list</field>
+        <field name="model">cinema.showtime</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'cancelled'" decoration-info="state == 'draft'">
+                <field name="start_datetime"/>
+                <field name="movie_id"/>
+                <field name="cinema_id"/>
+                <field name="hall_id"/>
+                <field name="audio_language" optional="hide"/>
+                <field name="base_price"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge" decoration-success="state == 'published'" decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cinema_showtime_form" model="ir.ui.view">
+        <field name="name">cinema.showtime.form</field>
+        <field name="model">cinema.showtime</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_publish" string="Put on Sale" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_draft" string="Back to Draft" type="object" invisible="state != 'published'"/>
+                    <button name="action_cancel" string="Cancel Showtime" type="object" invisible="state == 'cancelled'"
+                            confirm="Cancel this showtime? Booked seats are released."/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,published"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <group>
+                        <group string="Programme">
+                            <field name="movie_id"/>
+                            <field name="hall_id"/>
+                            <field name="cinema_id"/>
+                            <field name="audio_language"/>
+                            <field name="subtitle_language"/>
+                        </group>
+                        <group string="Schedule &amp; Price">
+                            <field name="start_datetime"/>
+                            <field name="buffer_minutes"/>
+                            <field name="end_datetime"/>
+                            <field name="start_local"/>
+                            <field name="business_date"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="base_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cinema_showtime_calendar" model="ir.ui.view">
+        <field name="name">cinema.showtime.calendar</field>
+        <field name="model">cinema.showtime</field>
+        <field name="arch" type="xml">
+            <calendar string="Showtimes" date_start="start_datetime" date_stop="end_datetime"
+                      color="hall_id" mode="week" quick_create="0">
+                <field name="movie_id"/>
+                <field name="hall_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_cinema_showtime_search" model="ir.ui.view">
+        <field name="name">cinema.showtime.search</field>
+        <field name="model">cinema.showtime</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="movie_id"/>
+                <field name="cinema_id"/>
+                <field name="hall_id"/>
+                <filter name="today" string="Today"
+                        domain="[('business_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="on_sale" string="On Sale" domain="[('state', '=', 'published')]"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="upcoming" string="Upcoming"
+                        domain="[('start_datetime', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <group>
+                    <filter name="group_movie" string="Movie" context="{'group_by': 'movie_id'}"/>
+                    <filter name="group_hall" string="Hall" context="{'group_by': 'hall_id'}"/>
+                    <filter name="group_day" string="Day" context="{'group_by': 'business_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_cinema_showtime" model="ir.actions.act_window">
+        <field name="name">Showtimes</field>
+        <field name="res_model">cinema.showtime</field>
+        <field name="view_mode">list,calendar,form</field>
+        <field name="context">{'search_default_upcoming': 1}</field>
+    </record>
+</odoo>
